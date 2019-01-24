@@ -106,15 +106,19 @@ void loop()
   int16_t mx=(Mag[1]<<8 | Mag[0]);
   int16_t my=(Mag[3]<<8 | Mag[2]);
   int16_t mz=(Mag[5]<<8 | Mag[4]);
+  
+   //Get Min and Max values for each (x,y,z) coordinate and subtract from raw reading to get correct angle
 
-  float heading = atan2(mx, my);
+  float heading = atan2(mx - 60.5, my - 29.3);
 
   // Once you have your heading, you must then add your 'Declination Angle',
   // which is the 'Error' of the magnetic field in your location. Mine is 0.0404 
   // Find yours here: http://www.magnetic-declination.com/
   
   // If you cannot find your Declination, comment out these two lines, your compass will be slightly off.
-  float declinationAngle = 0.0404;
+  
+  //declination angle = 0.2083
+  float declinationAngle = 0.2083;
   heading += declinationAngle;
 
   // Correct for when signs are reversed.
@@ -128,19 +132,23 @@ void loop()
   // Convert radians to degrees for readability.
   float headingDegrees = heading * 180/PI; 
 
+  
+  
   Serial.print("\rHeading:\t");
   Serial.print(heading);
   Serial.print(" Radians   \t");
   Serial.print(headingDegrees);
   Serial.println(" Degrees   \t");
+  
+  
 
   Serial.print ("Magnetometer readings:"); 
   Serial.print ("\tMx:");
-  Serial.print (mx); 
+  Serial.print (mx - 60.5); 
   Serial.print ("\tMy:");
-  Serial.print (my);
+  Serial.print (my - 29.3);
   Serial.print ("\tMz:");
-  Serial.print (mz);  
+  Serial.print (mz + 15.6);  
   Serial.println ("\t");
   
   
