@@ -83,7 +83,7 @@ void setup() {
         LED_ON;
         delay(500);
         LED_OFF;
-        delay(500);
+        delay(500);  //POTENTIAL ISSUE HERE. GET SOFT RESET.
     }
     LED_ON;
     //setupSTA(sta_ssid, sta_password);
